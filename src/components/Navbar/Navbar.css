@@ -1,0 +1,13 @@
+.navbar > a:not(:first-child) {
+  text-decoration: none;
+  color: var(--gray-500);
+  transition: all 200ms ease-in;
+  cursor: pointer;
+}
+.navbar > a:hover {
+  color: var(--gray-200);
+}
+.navbar > a:first-child {
+  text-decoration: none;
+  color: var(--gray-200);
+}

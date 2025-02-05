@@ -1,0 +1,35 @@
+.create-task {
+  background-color: var(--gray-700);
+  width: 60%;
+  border-radius: 10px;
+}
+
+.create-task > input[type="text"] {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+}
+
+.create-task > input[type="text"]:focus {
+  outline: none;
+}
+
+.create-task > select {
+  border: none;
+  background-color: transparent;
+}
+.create-task > select:focus {
+  outline: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .create-task {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .create-task {
+    width: 100%;
+  }
+}
