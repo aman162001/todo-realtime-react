@@ -1,0 +1,32 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - master  # Deploy on push to main branch
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest] # ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies (if needed)
+      run: npm install # Modify or remove this step based on your project needs
+
+    - name: Build project (optional step if you're compiling/building)
+      env:
+        VITE_PRODUCTION: true
+        VITE_DEV_URL: http://todolist.us-east-1.elasticbeanstalk.com
+        VITE_PRODUCTION_URL: http://todolist.us-east-1.elasticbeanstalk.com
+      run: npm run build # Modify or remove this step
+
+    - name: Sync files to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+      run: |
+        aws s3 sync ./build/ s3://$AWS_BUCKET_NAME/ --region $AWS_REGION --delete
